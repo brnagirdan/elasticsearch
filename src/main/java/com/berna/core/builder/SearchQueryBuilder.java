@@ -1,7 +1,7 @@
 package com.berna.core.builder;
 
 
-import com.berna.core.model.UserDummy;
+import com.berna.core.model.User;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SearchQueryBuilder {
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
-    public List<UserDummy> getAll(String text) {
+    public List<User> getAll(String text) {
         QueryBuilder query= QueryBuilders.boolQuery()
                    .should(QueryBuilders.queryStringQuery(text)
                            .lenient(true)
@@ -33,7 +33,7 @@ public class SearchQueryBuilder {
                 .withQuery(query)
                 .build();
 
-        List<UserDummy>users= elasticsearchTemplate.queryForList(build,UserDummy.class);
+        List<User>users= elasticsearchTemplate.queryForList(build,User.class);
 
         return users;
 

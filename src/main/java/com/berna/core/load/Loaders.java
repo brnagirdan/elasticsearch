@@ -1,16 +1,17 @@
 package com.berna.core.load;
 
 
+import com.berna.core.jparepository.BookmarkJpaRepository;
 import com.berna.core.jparepository.UserJpaRepository;
-import com.berna.core.repository.UsersRepository;
-import com.berna.core.model.UserDummy;
+import com.berna.core.model.Bookmark;
+import com.berna.core.repository.UserRepository;
+import com.berna.core.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,7 +21,7 @@ public class Loaders {
     ElasticsearchOperations operations;
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
 
     @Autowired
     UserJpaRepository userJpaRepository;
@@ -30,17 +31,10 @@ public class Loaders {
     @Transactional
     public void loadAll(){
         System.out.println("Loading Data");
-        userJpaRepository.save(getData()); // save datas to H2 DB
-        List<UserDummy> usersList = userJpaRepository.findAll(); //Get from H2 DB */
-        usersRepository.save(getData()); //loads into Elastic
+        List<User> usersList = userJpaRepository.findAll(); //Get from H2 DB */
+        usersRepository.save(usersList); //loads into Elastic
         System.out.printf("Loading Completed");
     }
 
-    private List<UserDummy> getData() {
-        List<UserDummy> users = new ArrayList<>();
-        users.add(new UserDummy("Ajay",123L, "Accounting", 12000L));
-        users.add(new UserDummy("Jaga",1234L, "Finance", 22000L));
-        users.add(new UserDummy("Thiru",1235L, "Accounting", 12000L));
-        return users;
-    }
+
 }

@@ -1,7 +1,7 @@
-package com.berna.core.resource;
+package com.berna.core.controller;
 
-import com.berna.core.model.UserDummy;
-import com.berna.core.repository.UsersRepository;
+import com.berna.core.model.User;
+import com.berna.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,28 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/search")
-public class SearchResource {
+@RequestMapping("/rest/user/search")
+public class UserSearchController {
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository usersRepository;
+
 
     @GetMapping(value = "/name/{text}")
-    public List<UserDummy> searchName(@PathVariable final String text) {
+    public List<User> searchName(@PathVariable final String text) {
         return usersRepository.findByName(text);
     }
 
 
     @GetMapping(value = "/salary/{salary}")
-    public List<UserDummy> searchSalary(@PathVariable final Long salary) {
+    public List<User> searchSalary(@PathVariable final Long salary) {
         return usersRepository.findBySalary(salary);
     }
 
 
     @GetMapping(value = "/all")
-    public List<UserDummy> searchAll() {
-        List<UserDummy> userDummyList = new ArrayList<>();
-        Iterable<UserDummy> userses = usersRepository.findAll();
+    public List<User> searchAll() {
+        List<User> userDummyList = new ArrayList<>();
+        Iterable<User> userses = usersRepository.findAll();
         userses.forEach(userDummyList::add);
         return userDummyList;
     }
