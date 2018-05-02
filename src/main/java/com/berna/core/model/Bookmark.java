@@ -24,8 +24,7 @@ public class Bookmark {
     public Bookmark() {  // JPA only
     }
 
-    public Bookmark(Long id, User user, String uri, String description) {
-        this.id = id;
+    public Bookmark(User user, String uri, String description) {
         this.user = user;
         this.uri = uri;
         this.description = description;

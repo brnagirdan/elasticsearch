@@ -1,4 +1,4 @@
-package com.berna.elastic;
+package com.berna.core;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
