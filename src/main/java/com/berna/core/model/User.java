@@ -28,9 +28,8 @@ public class User {
     public User() { // JPA only
     }
 
-    public User(String name, Long id, String teamName, Long salary) {
+    public User(String name, String teamName, Long salary) {
         this.name = name;
-        this.id = id;
         this.teamName = teamName;
         this.salary = salary;
     }
