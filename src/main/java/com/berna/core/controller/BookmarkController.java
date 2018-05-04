@@ -40,7 +40,7 @@ public class BookmarkController {
     }
 
    @RequestMapping(method = RequestMethod.PUT,value="/{bookmarkId}")
-    ResponseEntity<?> update(@PathVariable String name,@PathVariable Long bookmarkId,@RequestBody Bookmark input) {
+    ResponseEntity<?> updateBookmark(@PathVariable String name,@PathVariable Long bookmarkId,@RequestBody Bookmark input) {
         this.validateUser(name);
         Bookmark bookmark=bookmarkJpaRepository.findOne(bookmarkId);
         Bookmark pending=bookmarkUpdater.apply(bookmark,input);
@@ -50,7 +50,7 @@ public class BookmarkController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> add(@PathVariable String name,@RequestBody Bookmark input){
+    ResponseEntity<?> createBookmark(@PathVariable String name,@RequestBody Bookmark input){
         this.validateUser(name);
         return this.userJpaRepository
                 .findByName(name)
