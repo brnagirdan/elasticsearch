@@ -6,9 +6,9 @@ import com.berna.core.jparepository.UserJpaRepository;
 import com.berna.core.model.Bookmark;
 import com.berna.core.updater.BookmarkUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 
@@ -58,10 +58,13 @@ public class BookmarkController {
                     Bookmark result=bookmarkJpaRepository.save(new Bookmark(user,
                             input.getUri(),input.getDescription()));
 
-                    URI location= ServletUriComponentsBuilder
+                /*   URI location= ServletUriComponentsBuilder
                             .fromCurrentRequest().path("/{id}")
-                            .buildAndExpand(result.getId()).toUri();
-                    return ResponseEntity.created(location).build();
+                            .buildAndExpand(result.getId()).toUri(); */
+                 //   return ResponseEntity.created(location).build();
+
+                    Link forOneBookmark=new BookmarkResource(result).getLink("self");
+                    return ResponseEntity.created(URI.create(forOneBookmark.getHref())).build();
                 })
                 .orElse(ResponseEntity.noContent().build());
     }
