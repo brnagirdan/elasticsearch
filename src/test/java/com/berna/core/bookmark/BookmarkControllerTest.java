@@ -81,7 +81,7 @@ public class BookmarkControllerTest {
         this.bookmarkJpaRepository.deleteAllInBatch(); // else method returns more than o element
         this.userJpaRepository.deleteAllInBatch();
 
-        this.user = userJpaRepository.save(new User(name, "DID", 15000L));
+        this.user = userJpaRepository.save(new User(name,"123", "DID", 15000L));
         this.bookmarkList.add(bookmarkJpaRepository.save(new Bookmark(user, "http://bookmark.com/10/" + name, "Description")));
     }
 

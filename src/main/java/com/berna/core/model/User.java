@@ -18,6 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String password;
     private String teamName;
     @JsonIgnore
     private Long salary;
@@ -28,10 +29,20 @@ public class User {
     public User() { // JPA only
     }
 
-    public User(String name, String teamName, Long salary) {
+    public User(String name, String password, String teamName, Long salary) {
         this.name = name;
+        this.password = password;
         this.teamName = teamName;
         this.salary = salary;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,12 +53,12 @@ public class User {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getTeamName() {
@@ -74,7 +85,6 @@ public class User {
         this.bookmarks = bookmarks;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +92,7 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
+                Objects.equals(password, user.password) &&
                 Objects.equals(teamName, user.teamName) &&
                 Objects.equals(salary, user.salary) &&
                 Objects.equals(bookmarks, user.bookmarks);
@@ -89,6 +100,19 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, teamName, salary, bookmarks);
+
+        return Objects.hash(id, name, password, teamName, salary, bookmarks);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", teamName='" + teamName + '\'' +
+                ", salary=" + salary +
+                ", bookmarks=" + bookmarks +
+                '}';
     }
 }
